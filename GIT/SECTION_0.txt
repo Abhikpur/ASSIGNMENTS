@@ -1,0 +1,61 @@
+1. Create a directory 'project_dir' and cd to 'project_dir'
+ANS. mkdir project_dir && cd project_dir
+
+2. Initialize git version database
+ANS. git init
+
+3. Create new file index.html.
+ANS. touch index.html
+
+4. Check git status
+ANS. git status
+
+5. Stage index.html file
+ANS. git add index.html
+
+6. Commit index.html
+ANS. git commit -m "index.html is created"
+
+7. Create new file info.txt
+ANS. touch info.txt
+
+8. Check git status
+ANS. git status
+
+9. Configure git to ignore all txt file
+ANS. touch .gitignore
+
+10. Check git status
+ANS. git status
+
+11. Stage and commit index.html
+ANS. git commit -a -m "Some text added to index.html"
+
+12. Log all comments so far
+ANS. git log
+
+13. Make some changes in index.html
+ANS. Made changes to index.html file
+
+14. Revert changes made in previous step using git command.
+ANS. git restore index.html
+
+15. Again change index.html
+ANS. Made changes to index.html file
+
+16. Stage index.html
+ANS. git add index.html
+
+17. Revert back the last stage
+ANS. git restore --staged index.html
+
+18. Rename add command to my-add
+ANS. git config --global alias.my-add add
+
+19. Using my-add command stage index.html and commit the change.
+ANS. git my-add index.html
+     git commit -m "new text is added to index.html"
+
+20. Revert the last commit
+ANS. git reset --hard HEAD^
+ 
