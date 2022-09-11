@@ -1,0 +1,61 @@
+using System;
+class BookStall
+{
+    struct Book
+    {
+        public int bookId;
+        public string title;
+        public double price;
+        BookType booktype;
+        enum BookType
+        {
+            Magazine,Novel,ReferenceBook,Miscellaneous
+        }
+        //public Book(int bookId,string title,double price,bookType )
+        public void InsertDetails()
+        {
+            Console.WriteLine("Enter bookId");
+            this.bookId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter title");
+            this.title = Console.ReadLine();
+            Console.WriteLine("Enter price");
+            this.price = int.Parse(Console.ReadLine());
+        start:
+            Console.WriteLine("Enter bookType : press 1 as Magazine," +
+                "press 2 as Novel,press 3 ReferenceBook,press 4 as Miscellaneous");
+            int x = int.Parse(Console.ReadLine());
+            switch(x)
+            {
+                case 1:
+                    this.booktype = BookType.Magazine;
+                    break;
+                case 2:
+                    this.booktype = BookType.Novel;
+                    break;
+                case 3:
+                    this.booktype = BookType.ReferenceBook;
+                    break;
+                case 4:
+                    this.booktype = BookType.Miscellaneous;
+                    break;
+               default:
+                    Console.WriteLine("Enter valid key");
+                    goto start;
+                    
+            }
+
+        }
+        public void ShowDetails()
+        {
+            Console.WriteLine("Here are the details : " + " ,BookId= " + this.bookId + " ,Title = " +
+                this.title + " ,Price = " + this.price + " ,Booktype = " + this.booktype);
+    }
+    }
+    static void Main(string[] args)
+    {
+        // b1 = new BookStall();
+        Book b1 =new Book();
+        b1.InsertDetails();
+        b1.ShowDetails();  
+    }
+}

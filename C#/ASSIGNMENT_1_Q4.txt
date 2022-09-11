@@ -1,0 +1,30 @@
+using System;
+class SwapInteger
+{
+    public static void swap(ref int a,ref int b)
+    {
+        int c = a;
+        a = b;
+        b = c;
+    }
+    public static void printvalue(int a,int b)
+    {
+        Console.WriteLine(" value of x = "+a+" , y = "+b);
+    }
+
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("Enter 1st integer x ");
+        int x=int.Parse(Console.ReadLine());
+        Console.WriteLine("Enter 1st integer y ");
+        int y=int.Parse(Console.ReadLine());
+        Console.WriteLine("Before swapping ");
+        printvalue(x, y);
+        swap(ref x,ref y);
+        Console.WriteLine("After swapping ");
+        printvalue(x,y);
+
+
+
+    }
+}

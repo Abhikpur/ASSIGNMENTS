@@ -1,0 +1,30 @@
+using System;
+class Circle
+{
+    double radious { get; set; }
+    double area { get; set; }
+    double circumference { get; set; }
+
+    public void AreaPermimeter(double r)
+    {
+        this.radious = r; 
+        this.area=  (Math.PI*Math.Sqrt(r));
+        this.circumference= (2*Math.PI*r);
+    }
+
+    public void printvalues()
+    {
+        Console.WriteLine("Area  = " + this.area);
+        Console.WriteLine("Perimeter  = " + this.circumference);
+    }
+    public static void Main(string[] args)
+    {
+        Circle c=new Circle();
+        Console.WriteLine("Enter the radious of the circle");
+        double radious= double.Parse(Console.ReadLine());
+        c.AreaPermimeter(radious);
+        c.printvalues();
+
+
+    }
+}

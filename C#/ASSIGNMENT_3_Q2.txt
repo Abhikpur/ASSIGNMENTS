@@ -1,0 +1,133 @@
+using System;
+using System.Reflection;
+
+[Serializable]
+class StackException: Exception
+{
+    public StackException() :base()
+    {
+    } 
+    public StackException(string message) :base(message) 
+    {
+        
+    }
+    public StackException(string message, Exception innerException) :base(message, innerException)
+    { 
+    }
+}
+class MyStack : ICloneable
+{
+    public int n { get; set; }
+    public int[] a { get; set; }
+    public int top { get; set; }
+    
+
+    public MyStack(MyStack myStack)
+    {
+        n = myStack.n;
+        a = myStack.a;
+        top = myStack.top;
+    }
+    public object Clone()
+    {
+        return new MyStack(this);
+    }
+
+    public MyStack( int n)
+    {
+        this.top = -1;
+        this.n = n;
+        this.a= new int[n];
+    }
+
+    public void push (int e)
+    {
+        try
+        {
+            if (top == n)
+            {
+                throw new StackException("Stack cannot take any value,it is filled");
+                return;
+            }
+        }
+        catch(StackException se)
+        {
+            Console.WriteLine(se);
+            return;
+        }
+            top++;
+            this.a[top] = e;
+            Console.WriteLine("The item " + e + " inserted successfully");
+    }
+    public void pop()
+    {
+        try
+        {
+            if (top == -1)
+            {
+                throw new StackException("Item can not be deleted.It is now empty");
+                return;
+            }
+        }
+        catch(StackException se)
+        {
+            Console.WriteLine(se);
+            return;
+        }
+            top--;
+            Console.WriteLine("The item is now deleted successfully");   
+    }
+    public void show()
+    {
+        if(top==-1)
+        {
+            Console.WriteLine("Nothing is there to be shown..");
+            return;
+        }
+        Console.WriteLine("Available members");
+        for (int i=0;i<=top;i++)
+        {   
+            
+            Console.WriteLine(a[i]);
+        }
+    }
+    //public virtual object Clone()
+    //{
+    //    return this.CloneObject();
+    //}
+
+}
+class MyClassForStack
+{
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Enter the size of the stack you want to create");
+        int n = int.Parse(Console.ReadLine());
+        if(n==0)
+        {
+            Console.WriteLine("Nothing to insert");
+            return;
+        }
+        MyStack s1 = new MyStack(n);
+        Console.WriteLine("You have push() function to insert and push() function to delete");
+
+        s1.push(12);
+        s1.push(13);
+        s1.push(14);
+        s1.push(15);
+        s1.pop();
+        s1.pop();
+        s1.push(18);
+        s1.pop();
+        s1.push(16);
+        s1.pop();
+        s1.pop();
+        s1.push(15);
+        s1.pop();
+        s1.show();
+
+        MyStack s2 = (MyStack)s1.Clone();
+
+    }
+}
