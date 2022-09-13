@@ -1,0 +1,88 @@
+using System;
+
+public delegate void MyHandler1();
+public delegate void MyHandler2();
+
+class A
+{
+
+    public const string m_id = "Class A";
+    public void OnHandler1()
+    {
+        Console.WriteLine(" Transaction cannot be continued as balance is insufficient in Account");
+    }
+    public void OnHandler2()
+    {
+        Console.WriteLine(" Transaction cannot be continued as balance is zero in Account");
+    }
+
+    public A(ICICIBank b)
+    {
+        MyHandler1 d1 = new MyHandler1(OnHandler1);
+        MyHandler2 d2 = new MyHandler2(OnHandler2);
+        b.UnderBalance += d1;
+        b.ZeroBalance += d2;
+    }
+}
+
+class ICICIBank
+{
+    public int AccountNumber { get; set; }
+    public string CustomerName { get; set; }
+    public double balance { get; set; }
+    public void Withdraw(double d)
+    {
+        this.balance = this.balance - d;
+
+    }
+    public void Deposite(double d)
+    {
+        this.balance = this.balance + d;
+    }
+
+    public ICICIBank() { }
+    public ICICIBank(int AccountNumber, string CustomerName, double balance)
+    {
+        this.AccountNumber = AccountNumber;
+        this.CustomerName = CustomerName;
+        this.balance = balance;
+    }
+    public event MyHandler1 UnderBalance;
+    public event MyHandler2 ZeroBalance;
+    public void FireEvent1()
+    {
+        if (UnderBalance != null)
+        {
+            UnderBalance();
+        }
+    }
+    public void FireEvent2()
+    {
+        if (ZeroBalance != null)
+        {
+            ZeroBalance();
+        }
+    }
+}
+public class Driver
+{
+    public static void Main()
+    {
+        ICICIBank b1 = new ICICIBank(1236, "abh", 1000);
+        A a = new A(b1);
+        //Withdrawing money
+        b1.Withdraw(1000);
+        if (b1.balance < 1000)
+        {
+            b1.FireEvent1();
+        }
+
+        if (b1.balance == 0)
+        {
+            b1.FireEvent2();
+        }
+        //depositing money
+        b1.Deposite(1000);
+
+    }
+}
