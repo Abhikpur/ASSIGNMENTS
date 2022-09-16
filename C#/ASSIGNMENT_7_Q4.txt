@@ -1,0 +1,45 @@
+using System;
+
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
+class ManagerClass
+{
+    [Serializable]
+    class Manager
+    {
+        public int EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
+        public int EmployeeSalary { get; set; }
+
+        public Manager()
+        {
+
+        }
+        public Manager(int EmployeeId, string EmployeeName, int EmployeeSalary)
+        {
+            this.EmployeeId = EmployeeId;
+            this.EmployeeName = EmployeeName;
+            this.EmployeeSalary = EmployeeSalary;
+        }
+    }
+    public static void Main(string[] args)
+    {
+        string path = @"E:\FOLDER_TEST\Manager\Manager_Details.txt";
+        Manager m1 = new Manager(1,"abhik",1000);
+        
+        //Serialization
+        FileStream fileStream = new FileStream(path, FileMode.Open);
+        BinaryFormatter bf = new BinaryFormatter();
+        
+        //Deserialization
+
+        Manager m=(Manager)bf.Deserialize(fileStream);
+        Console.WriteLine("Manager ID = " + m.EmployeeId);
+        Console.WriteLine("Manager Name = "+ m.EmployeeName);
+        Console.WriteLine("Manager Salary = " + m.EmployeeSalary);
+
+
+    }
+}
+

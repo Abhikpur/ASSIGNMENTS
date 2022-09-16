@@ -1,0 +1,80 @@
+using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Transactions;
+
+class Myclass
+{
+    [Serializable]
+    class Bank
+    {
+        public int AccountNumber { get; set; }
+        public string CustomerName { get; set; }
+        public double balance { get; set; }
+        public Bank() { }
+        public Bank(int AccountNumber, string CustomerName, double balance)
+        {
+            this.AccountNumber = AccountNumber;
+            this.CustomerName = CustomerName;
+            this.balance = balance;
+        }
+        public void AcceptDetails()
+        {
+            Console.WriteLine("Enter Acoount No");
+            this.AccountNumber=int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter Customer Name ");
+            this.CustomerName=Console.ReadLine();
+            Console.WriteLine("Enter balance");
+            this.balance = int.Parse(Console.ReadLine());
+        }
+        public void Withdraw(double d)
+        {
+            this.balance = this.balance - d;
+            
+        }
+        public void Deposite(double d)
+        {
+            this.balance = this.balance + d;
+        }
+    }
+    class MyBank
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Enter no of employee you want to ");
+            int n = int.Parse(Console.ReadLine());
+            Bank[] bank = new Bank[n];
+            string path = @"E:\FOLDER_TEST\Bank\Bank_detail.txt";
+
+            FileStream stream = new FileStream(path, FileMode.Append);
+            using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8))
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    Bank b = new Bank();
+                    b.AcceptDetails();
+                    writer.WriteLine("Account Number "+b.AccountNumber);
+                    writer.WriteLine("Customer Name "+b.CustomerName);
+                    writer.WriteLine("Balance "+b.balance);
+                }
+            }
+            stream.Close();
+            using (FileStream stream1 = new FileStream(path, FileMode.Open))
+            {
+                using (StreamReader reader = new StreamReader(stream1))
+                {
+                 string line;
+
+                 while ((line = reader.ReadLine()) != null)
+                  {
+                    Console.WriteLine(line);
+                  }
+                    
+                }
+
+            }
+        }
+    }
+    }
+

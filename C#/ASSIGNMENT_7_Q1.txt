@@ -1,0 +1,41 @@
+using System;
+using System.IO;
+namespace FilesTesting
+{
+    class Myclass
+    {
+        public static void Main(string[] args)
+        {
+            string path = @"E:\FOLDER_TEST\TEXT1.txt";
+            if(File.Exists(path))
+            {
+                Console.WriteLine("File found");
+                string data=File.ReadAllText(path);
+                Console.WriteLine(data);
+            }
+            else
+            {
+                Console.WriteLine("File not found");
+            }
+            string path2 = @"E:\FOLDER_TEST\";
+            /*create sundirectory
+            DirectoryInfo dir=new DirectoryInfo(path2);
+            dir.CreateSubdirectory("Subdirectory1");
+            dir.CreateSubdirectory("Subdirectory2");
+            dir.CreateSubdirectory("Subdirectory3");*/
+
+            //And list subdirectories from mentioned folder on file system using System
+            DirectoryInfo dir = new DirectoryInfo(path2);
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            
+            foreach(DirectoryInfo item in dirs)
+            {
+                Console.WriteLine(item.Name);
+            }
+            foreach (DirectoryInfo item in dirs)
+            {
+                Console.WriteLine(item.FullName);
+            }
+        }
+    }
+}
